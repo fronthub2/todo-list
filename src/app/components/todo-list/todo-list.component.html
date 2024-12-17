@@ -1,0 +1,28 @@
+<div>
+  <mat-form-field>
+    <mat-label>Введите текст</mat-label>
+    <input
+      type="text"
+      matInput
+      #input
+      (input)="onChangeInput(input)"
+      [(ngModel)]="valueInput"
+    />
+  </mat-form-field>
+  <app-button-add
+    [btnTitle]="btnTitle"
+    [isDisableAdd]="isDisableAdd"
+    (click)="onAddData()"
+  ></app-button-add>
+</div>
+<textarea [(ngModel)]="valueTextarea" placeholder="Описание"></textarea>
+<app-todo-item
+  [noteData]="noteData"
+  (DeleteEvent)="onDelete($event)"
+  (EditEvent)="onEdit($event)"
+  (DescriptionEvent)="onDescription($event)"
+></app-todo-item>
+
+@if(isShowModal) {
+<app-modal></app-modal>
+}
