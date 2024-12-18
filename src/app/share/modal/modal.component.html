@@ -1,11 +1,15 @@
 <div class="wrapper">
-    <div class="modal">
-        <div class="modal--text">
-            <div>вы уверены что хотите ... ?</div>
-        </div>
-        <div class="modal--buttons">
-            <button>Yes</button>
-            <button>No</button>
-        </div>
+  <div class="modal">
+    <div class="modal--text">
+      <div style="text-align: center">
+        Вы уверены что хотите {{ modalTitle }} ?
+      </div>
     </div>
+    <div class="modal--buttons">
+      <button appButtonHover (click)="onAction(modalTitle); closeModal(false)">
+        да
+      </button>
+      <button appButtonHover (click)="closeModal(false)">нет</button>
+    </div>
+  </div>
 </div>

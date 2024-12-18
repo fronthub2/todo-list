@@ -11,37 +11,24 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
   background-color: white;
-  width: 300px;
+  width: 340px;
   height: 200px;
   padding: 30px;
   border-radius: 15px;
 
   &--buttons {
     display: flex;
-    gap: 20px;
+    justify-content: space-between;
   }
 }
 
-// .modal--buttons {
-//   display: flex;
-//   gap: 20px;
-// }
-
 button {
-  width: 100px;
+  width: 140px;
   padding: 10px 0;
   border-radius: 15px;
   cursor: pointer;
   background-color: transparent;
   border: 1px solid cadetblue;
-  transition: 320ms;
   font-size: 20px;
-
-  &:hover {
-    background-color: cadetblue;
-    transition: 320ms;
-    color: white;
-  }
 }

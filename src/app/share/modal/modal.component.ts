@@ -1,14 +1,23 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ButtonHoverDirective } from '../../directives/button-hover.directive';
 
 @Component({
   selector: 'app-modal',
-  imports: [],
+  imports: [ButtonHoverDirective],
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.scss',
 })
 export class ModalComponent {
-  @Input() title!: string;
+  @Input() modalTitle!: string;
   @Input() description!: string;
-  @Output() yesOrNoEvent = new EventEmitter<boolean>();
-  @Output() isShow = new EventEmitter<boolean>();
+  @Output() closeModalEvent = new EventEmitter<boolean>();
+  @Output() actionEvent = new EventEmitter<string>();
+
+  onAction(event:string) {
+    this.actionEvent.emit(event);
+  }
+
+  closeModal(event: boolean) {
+    this.closeModalEvent.emit(event);
+  }
 }

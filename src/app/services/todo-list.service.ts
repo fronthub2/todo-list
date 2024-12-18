@@ -20,11 +20,13 @@ export class DataService {
 
   addData(note: INote) {
     this.noteData.push(note);
-    this.LocalStorageService.set(this.key, this.noteData);
   }
 
   deleteData(index: number) {
     this.noteData.splice(index, 1);
+  }
+
+  saveInLocalStorage() {
     this.LocalStorageService.set(this.key, this.noteData);
   }
 
