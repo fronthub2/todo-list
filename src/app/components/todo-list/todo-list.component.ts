@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { INote } from '../../interface/notes.interface';
 import { DataService } from '../../services/todo-list.service';
@@ -17,6 +18,7 @@ import { ButtonAddComponent } from './button-add/button-add.component';
     ButtonAddComponent,
     TodoItemComponent,
     ModalComponent,
+    MatDialogModule,
   ],
   templateUrl: './todo-list.component.html',
   styleUrl: './todo-list.component.scss',
@@ -27,13 +29,12 @@ export class TodoListComponent {
   valueTextarea!: string;
   isDisableAdd = true;
   btnTitle = 'Add';
-  ext: any;
   index!: number;
 
   isShowModal = false;
   modalTitle!: string;
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, private dialog: MatDialog) {
     this.noteData = this.dataService.getData();
     console.log(this.noteData);
   }
@@ -53,19 +54,19 @@ export class TodoListComponent {
       });
     }
 
-    this.clearValue();
     this.isDisableAdd = true;
+    this.clearValue();
     this.dataService.saveInLocalStorage();
   }
 
   onDelete(index: number) {
     this.index = index;
-    this.openModal('удалить');
+    this.openDialog('удалить');
   }
 
   onEdit(index: number) {
     this.index = index;
-    this.openModal('изменить');
+    this.openDialog('изменить');
   }
 
   onDescription(index: number) {
@@ -76,34 +77,17 @@ export class TodoListComponent {
     this.isDisableAdd = !event.value.trim().length;
   }
 
+  openDialog(word: string) {
+    this.dialog.open(ModalComponent, {
+      data: {
+        title: word,
+        index: this.index,
+      },
+    });
+  }
+
   clearValue() {
     this.valueInput = '';
     this.valueTextarea = '';
-    this.isDisableAdd = true;
-  }
-
-  openModal(event: string) {
-    this.isShowModal = true;
-    this.modalTitle = event;
-  }
-
-  closeModal(event: boolean) {
-    this.isShowModal = event;
-  }
-
-  onAction(event: string) {
-    if (event === 'удалить') {
-      this.dataService.deleteData(this.index);
-      this.dataService.saveInLocalStorage();
-      this.btnTitle = 'Add';
-      this.clearValue();
-    } else {
-      this.valueInput = this.dataService.getDataByIndex(this.index).title;
-      this.valueTextarea = this.dataService.getDataByIndex(
-        this.index
-      ).description;
-      this.btnTitle = 'Edit';
-      this.isDisableAdd = false;
-    }
   }
 }

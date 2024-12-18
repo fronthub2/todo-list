@@ -20,7 +20,6 @@ export class TodoItemComponent {
 
   isLoading = true;
 
-
   ngOnInit(): void {
     setTimeout(() => {
       this.isLoading = false;
