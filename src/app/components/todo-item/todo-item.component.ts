@@ -11,12 +11,12 @@ import { INote } from '../../interface/notes.interface';
 })
 export class TodoItemComponent {
   @Input() noteData!: INote[];
-  @Input() isDisableDelete!: boolean;
-  @Input() isDisableDescription!: boolean;
+  @Input() isDisableButton!: boolean;
 
   @Output() DeleteEvent = new EventEmitter<number>();
   @Output() EditEvent = new EventEmitter<number>();
   @Output() DescriptionEvent = new EventEmitter<number>();
+
 
   isLoading = true;
 
@@ -25,6 +25,7 @@ export class TodoItemComponent {
       this.isLoading = false;
     }, 500);
   }
+
 
   onDelete(index: number) {
     this.DeleteEvent.emit(index);

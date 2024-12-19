@@ -17,6 +17,7 @@
 </div>
 <textarea [(ngModel)]="valueTextarea" placeholder="Описание"></textarea>
 <app-todo-item
+  [isDisableButton]="isDisableButton"
   [noteData]="noteData"
   (DeleteEvent)="onDelete($event)"
   (EditEvent)="onEdit($event)"

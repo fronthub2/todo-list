@@ -15,13 +15,13 @@ import { DataService } from '../../services/todo-list.service';
 })
 export class ModalComponent {
   title!: string;
-  index!:number;
+  index!: number;
 
   constructor(
     @Inject(MatDialogRef)
     private dialogRef: MatDialogRef<ModalComponent>,
     @Inject(MAT_DIALOG_DATA)
-    private data: { title: string; index: number },
+    private data: { title: string; index: number; editFn(): void },
     private dataService: DataService
   ) {
     this.title = this.data.title;
@@ -29,14 +29,13 @@ export class ModalComponent {
   }
 
   confirm() {
-    if (this.data.title === 'удалить') {
+    if (this.title === 'удалить') {
       this.dataService.deleteData(this.index);
-      this.dataService.saveInLocalStorage()
-      console.log(this.data.index);
-      console.log('удаляем');
+      this.dataService.saveInLocalStorage();
     } else {
-      console.log(this.data.index);
-      console.log('изменяем');
+      const note = this.dataService.getDataByIndex(this.index);
+      console.log(note.title);
+      this.data.editFn();
     }
     this.close();
   }

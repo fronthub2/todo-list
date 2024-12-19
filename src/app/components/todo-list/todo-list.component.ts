@@ -24,15 +24,16 @@ import { ButtonAddComponent } from './button-add/button-add.component';
   styleUrl: './todo-list.component.scss',
 })
 export class TodoListComponent {
+  btnTitle = 'Add';
   noteData!: INote[];
   valueInput!: string;
   valueTextarea!: string;
-  isDisableAdd = true;
-  btnTitle = 'Add';
   index!: number;
-
-  isShowModal = false;
   modalTitle!: string;
+
+  isDisableAdd = true;
+  isDisableButton = false;
+  isShowModal = false;
 
   constructor(private dataService: DataService, private dialog: MatDialog) {
     this.noteData = this.dataService.getData();
@@ -45,6 +46,7 @@ export class TodoListComponent {
       this.dataService.getDataByIndex(this.index).description =
         this.valueTextarea;
       this.btnTitle = 'Add';
+      this.isDisableButton = false;
     } else {
       this.dataService.addData({
         id: this.noteData.length + 1,
@@ -69,6 +71,15 @@ export class TodoListComponent {
     this.openDialog('изменить');
   }
 
+  edit() {
+    const note = this.dataService.getDataByIndex(this.index);
+    this.valueInput = note.title;
+    this.valueTextarea = note.description;
+    this.btnTitle = 'Edit';
+    this.isDisableAdd = false;
+    this.isDisableButton = true;
+  }
+
   onDescription(index: number) {
     this.dataService.getDataByIndex(index);
   }
@@ -82,6 +93,7 @@ export class TodoListComponent {
       data: {
         title: word,
         index: this.index,
+        editFn: this.edit.bind(this),
       },
     });
   }

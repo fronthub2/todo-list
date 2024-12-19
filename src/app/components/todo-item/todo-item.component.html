@@ -15,18 +15,18 @@
       </button>
       <button
         class="button--delete"
-        [matTooltip]="isDisableDelete ? '' : 'Удалить'"
-        [disabled]="isDisableDelete"
-        [style.opacity]="isDisableDelete ? 0.5 : 1"
+        [matTooltip]="isDisableButton ? '' : 'Удалить'"
+        [disabled]="isDisableButton"
+        [style.opacity]="isDisableButton ? 0.5 : 1"
         (click)="onDelete(i)"
       >
         X
       </button>
       <button
         class="button--description"
-        [matTooltip]="isDisableDescription ? '' : 'Описание'"
-        [disabled]="isDisableDescription"
-        [style.opacity]="isDisableDescription ? 0.5 : 1"
+        [matTooltip]="isDisableButton ? '' : 'Описание'"
+        [disabled]="isDisableButton"
+        [style.opacity]="isDisableButton ? 0.5 : 1"
         (click)="onDescription(i)"
       >
         ?
