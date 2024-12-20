@@ -13,6 +13,6 @@ export class ToastsComponent {
   title!: string;
 
   constructor(private toastsService: ToastsService) {
-    this.title = toastsService.get();
+    this.title = this.toastsService.get();
   }
 }

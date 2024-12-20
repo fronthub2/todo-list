@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { INote } from '../interface/notes.interface';
 import { LocalStorageService } from './local-storage.service';
-import { ToastsService } from './toasts.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +12,6 @@ export class DataService {
 
   constructor(
     private LocalStorageService: LocalStorageService,
-    private toastsService: ToastsService
   ) {
     this.noteData = this.LocalStorageService.get(this.key);
   }
