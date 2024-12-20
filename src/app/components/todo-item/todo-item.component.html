@@ -1,39 +1,4 @@
-<div *ngIf="isLoading" class="itemLoading">
-  <div class="iconLoading"></div>
-</div>
-
-<!-- <div *ngIf="!isLoading">
-  <div *ngFor="let note of noteData; let i = index" class="item">
-    <p class="item--text">{{ i + 1 }}. {{ note.title }}</p>
-    <div class="item--buttons">
-      <button
-        class="button--edit"
-        matTooltip="Редактировать"
-        (click)="onEdit(i)"
-      >
-        &check;
-      </button>
-      <button
-        class="button--delete"
-        [matTooltip]="isDisableButton ? '' : 'Удалить'"
-        [disabled]="isDisableButton"
-        [style.opacity]="isDisableButton ? 0.5 : 1"
-        (click)="onDelete(i)"
-      >
-        X
-      </button>
-      <button
-        class="button--description"
-        [matTooltip]="isDisableButton ? '' : 'Описание'"
-        [disabled]="isDisableButton"
-        [style.opacity]="isDisableButton ? 0.5 : 1"
-        (click)="onDescription(i)"
-      >
-        ?
-      </button>
-    </div>
-  </div>
-</div> -->
+<app-loading-todo-items *ngIf="isLoading"></app-loading-todo-items>
 
 <cdk-accordion *ngIf="!isLoading">
   <cdk-accordion-item
