@@ -5,6 +5,7 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { ButtonHoverDirective } from '../../directives/button-hover.directive';
+import { ToastsService } from '../../services/toasts.service';
 import { DataService } from '../../services/todo-list.service';
 
 @Component({
@@ -22,7 +23,8 @@ export class ModalComponent {
     private dialogRef: MatDialogRef<ModalComponent>,
     @Inject(MAT_DIALOG_DATA)
     private data: { title: string; index: number; editFn(): void },
-    private dataService: DataService
+    private dataService: DataService,
+    private toasts: ToastsService
   ) {
     this.title = this.data.title;
     this.index = this.data.index;
@@ -32,6 +34,8 @@ export class ModalComponent {
     if (this.title === 'удалить') {
       this.dataService.deleteData(this.index);
       this.dataService.saveInLocalStorage();
+      this.toasts.set('Успешно удален');
+      this.toasts.openSnackBar();
     } else {
       const note = this.dataService.getDataByIndex(this.index);
       console.log(note.title);

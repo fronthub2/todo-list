@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { INote } from '../../interface/notes.interface';
+import { ToastsService } from '../../services/toasts.service';
 import { DataService } from '../../services/todo-list.service';
 import { ModalComponent } from '../../share/modal/modal.component';
 import { TodoItemComponent } from '../todo-item/todo-item.component';
@@ -35,9 +36,21 @@ export class TodoListComponent {
   isDisableButton = false;
   isShowModal = false;
 
-  constructor(private dataService: DataService, private dialog: MatDialog) {
+  constructor(
+    private dataService: DataService,
+    private dialog: MatDialog,
+    private toastsService: ToastsService
+  ) {
     this.noteData = this.dataService.getData();
     console.log(this.noteData);
+  }
+
+  openToasts() {
+    this.toastsService.openSnackBar();
+  }
+
+  setTitleToasts(title: string) {
+    this.toastsService.set(title);
   }
 
   onAddData() {
@@ -45,8 +58,8 @@ export class TodoListComponent {
       this.dataService.getDataByIndex(this.index).title = this.valueInput;
       this.dataService.getDataByIndex(this.index).description =
         this.valueTextarea;
-      this.btnTitle = 'Add';
       this.isDisableButton = false;
+      this.setTitleToasts('Успешно изменен');
     } else {
       this.dataService.addData({
         id: this.noteData.length + 1,
@@ -54,11 +67,14 @@ export class TodoListComponent {
         description: this.valueTextarea,
         time: new Date().toLocaleTimeString(),
       });
+      this.setTitleToasts('Успешно добавлен');
     }
 
     this.isDisableAdd = true;
     this.clearValue();
     this.dataService.saveInLocalStorage();
+    this.openToasts();
+    this.btnTitle = 'Add';
   }
 
   onDelete(index: number) {
